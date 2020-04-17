@@ -18,7 +18,6 @@ class CreateRegionsTable extends Migration
             $table->string('name');
             $table->integer('parent_id');
             $table->integer('region_type_id');
-            $table->timestamps();
         });
     }
 
