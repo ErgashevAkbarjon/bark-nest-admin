@@ -13,8 +13,13 @@
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
+// Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('/regions', 'RegionController@index');
-});
+    Route::post('/regions', 'RegionController@store');
+    Route::put('/regions/{id}', 'RegionController@update');
+    Route::delete('/regions/{id}', 'RegionController@delete');
+
+    
+// });

@@ -17,4 +17,46 @@ class RegionController extends Controller
 
         return view('regions', compact('regions'));
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'region_type_id' => 'required'
+        ]);
+
+        Region::create($request->all());
+
+        return redirect()->back();
+    }
+
+    public function update($id, Request $request)
+    {
+        $regionToUpdate = Region::find($id);
+
+        if (!$regionToUpdate) {
+            return redirect()
+                ->back()
+                ->withErrors("Подобного региона не существует");
+        }
+
+        $regionToUpdate->update($request->all());
+
+        return redirect()->back();
+    }
+    
+    public function delete($id)
+    {
+        $regionToDelete = Region::find($id);
+        
+        if (!$regionToDelete) {
+            return redirect()
+                ->back()
+                ->withErrors("Подобного региона не существует");
+        }
+
+        $regionToDelete->delete();
+
+        return redirect()->back();
+    }
 }
