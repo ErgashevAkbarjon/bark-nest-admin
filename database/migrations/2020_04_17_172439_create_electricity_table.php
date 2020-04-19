@@ -16,7 +16,7 @@ class CreateElectricityTable extends Migration
         Schema::create('electricities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('region_id');
-            $table->double('hours');
+            $table->decimal('hours', 10, 2);
             $table->date('date');
             $table->text('comment');
             $table->string('day_period');
