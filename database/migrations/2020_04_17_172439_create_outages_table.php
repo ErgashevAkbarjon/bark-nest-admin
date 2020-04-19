@@ -18,6 +18,7 @@ class CreateOutagesTable extends Migration
             $table->integer('region_id');
             $table->integer('hours');
             $table->date('date');
+            $table->text('comment');
             $table->timestamps();
         });
     }
