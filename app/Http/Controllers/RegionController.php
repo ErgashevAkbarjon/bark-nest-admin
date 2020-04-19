@@ -15,6 +15,6 @@ class RegionController extends Controller
             ->with('subregions')
             ->get();
 
-        return $regions;
+        return view('regions', compact('regions'));
     }
 }

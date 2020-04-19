@@ -2,12 +2,16 @@
     <div>
         <v-navigation-drawer v-model="drawer" app>
             <v-list dense>
-                <v-list-item link href="/regions">
+                <v-list-item
+                    link
+                    href="/regions"
+                    :input-value="isCurrentLink('/regions')"
+                >
                     <v-list-item-action>
-                        <v-icon>mdi-home</v-icon>
+                        <v-icon>mdi-map</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
-                        <v-list-item-title>Home</v-list-item-title>
+                        <v-list-item-title>Регионы</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item link>
@@ -40,11 +44,15 @@
 
 <script>
 export default {
-    props: {
-        source: String
+    data() {
+        return {
+            drawer: false
+        }
     },
-    data: () => ({
-        drawer: false
-    })
+    methods: {
+        isCurrentLink(link){
+            return location.pathname == link;
+        }
+    }
 };
 </script>
