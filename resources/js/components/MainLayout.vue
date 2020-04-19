@@ -2,7 +2,7 @@
     <div>
         <v-navigation-drawer v-model="drawer" app>
             <v-list dense>
-                <v-list-item link>
+                <v-list-item link href="/regions">
                     <v-list-item-action>
                         <v-icon>mdi-home</v-icon>
                     </v-list-item-action>
@@ -35,9 +35,6 @@
                 </v-row>
             </v-container>
         </v-content>
-        <v-footer color="indigo" app>
-            <span class="white--text">&copy; 2020</span>
-        </v-footer>
     </div>
 </template>
 
