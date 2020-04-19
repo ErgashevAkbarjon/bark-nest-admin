@@ -16,7 +16,7 @@ class CreateRegionsTable extends Migration
         Schema::create('regions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('parent_id');
+            $table->integer('parent_id')->nullable();
             $table->integer('region_type_id');
         });
     }
