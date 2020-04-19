@@ -8,6 +8,8 @@ class Region extends Model
 {
     public $timestamps = false;
 
+    protected $guarded = [];
+
     public function outages()
     {
         return $this->hasMany(Outage::class);
