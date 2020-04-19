@@ -15,7 +15,7 @@ class RegionController extends Controller
             ->with('subregions')
             ->get();
 
-        return view('regions', compact('regions'));
+        return view('regions.index', compact('regions'));
     }
 
     public function store(Request $request)
