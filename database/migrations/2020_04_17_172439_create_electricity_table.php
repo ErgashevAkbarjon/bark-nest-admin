@@ -18,9 +18,9 @@ class CreateElectricityTable extends Migration
             $table->integer('region_id');
             $table->decimal('hours', 10, 2);
             $table->date('date');
-            $table->text('comment');
-            $table->string('day_period');
-            $table->string('night_period');
+            $table->text('comment')->nullable();
+            $table->string('day_period')->nullable();
+            $table->string('night_period')->nullable();
             $table->timestamps();
         });
     }
