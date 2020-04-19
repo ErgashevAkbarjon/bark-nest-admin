@@ -13,7 +13,7 @@ class CreateElectricityTable extends Migration
      */
     public function up()
     {
-        Schema::create('electricity', function (Blueprint $table) {
+        Schema::create('electricities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('region_id');
             $table->double('hours');
@@ -32,6 +32,6 @@ class CreateElectricityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('electricity');
+        Schema::dropIfExists('electricities');
     }
 }
