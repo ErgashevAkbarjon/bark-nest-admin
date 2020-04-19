@@ -10,9 +10,9 @@ class Region extends Model
 
     protected $guarded = [];
 
-    public function outages()
+    public function electricity()
     {
-        return $this->hasMany(Outage::class);
+        return $this->hasMany(Electricity::class);
     }
 
     public function type()

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOutagesTable extends Migration
+class CreateElectricityTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOutagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('outages', function (Blueprint $table) {
+        Schema::create('electricity', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('region_id');
             $table->integer('hours');
@@ -30,6 +30,6 @@ class CreateOutagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('outages');
+        Schema::dropIfExists('electricity');
     }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Outage extends Model
+class Electricity extends Model
 {
     public function region()
     {
