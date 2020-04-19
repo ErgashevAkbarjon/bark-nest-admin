@@ -23,6 +23,12 @@ class ElectricityController extends Controller
             $electricity->where('region_id', $request->region_id);
         }
 
+        $tooBigResult = $electricity->count() > 30;
+
+        if($tooBigResult){
+            return $electricity->paginate(30);
+        }
+
         return $electricity->get();
     }
 
