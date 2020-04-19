@@ -21,5 +21,9 @@ Auth::routes();
     Route::put('/regions/{id}', 'RegionController@update');
     Route::delete('/regions/{id}', 'RegionController@delete');
 
-    
+    Route::get('/electricity', 'ElectricityController@index');
+    Route::post('/electricity', 'ElectricityController@store');
+    Route::put('/electricity/{id}', 'ElectricityController@update');
+    Route::delete('/electricity/{id}', 'ElectricityController@delete');
+
 // });
