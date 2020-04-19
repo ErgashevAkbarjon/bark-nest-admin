@@ -26,7 +26,7 @@ class ElectricityController extends Controller
         $tooBigResult = $electricity->count() > 30;
 
         if($tooBigResult){
-            return $electricity->paginate(30);
+            return $electricity->paginate(30)->appends($request->all());
         }
 
         return $electricity->get();
