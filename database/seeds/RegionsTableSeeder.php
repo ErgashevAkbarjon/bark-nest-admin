@@ -18,7 +18,7 @@ class RegionsTableSeeder extends Seeder
         $regionsData = $this->getRegionData();
 
         foreach ($regionsData as $region) {
-            Region::create($region);
+            Region::insert($region);
         }
     }
 
