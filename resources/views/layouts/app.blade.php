@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('content')
+@section('main')
 <main-layout>
     <main class="py-4">
         @yield('content')

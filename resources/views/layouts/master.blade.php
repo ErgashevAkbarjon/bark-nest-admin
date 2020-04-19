@@ -86,7 +86,7 @@
     </div>
     </nav> --}}
     <v-app>
-        @yield('content')
+        @yield('main')
     </v-app>
     
     </div>

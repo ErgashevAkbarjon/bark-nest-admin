@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('content')
+@section('main')
 <login 
     login-route="{{route('login')}}"
     :errors="{{$errors}}"
