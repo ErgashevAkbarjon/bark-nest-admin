@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RegionTypesSeeder::class);
         $this->call(RegionsTableSeeder::class);
         // $this->call(ElectricitySeeder::class);
-        
+        $this->call(RolesTableSeeder::class);
 
     }
 }
