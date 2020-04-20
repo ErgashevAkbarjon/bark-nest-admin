@@ -11,9 +11,9 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
-// Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('/regions', 'RegionController@index');
@@ -26,4 +26,4 @@ Auth::routes();
     Route::put('/electricity/{id}', 'ElectricityController@update');
     Route::delete('/electricity/{id}', 'ElectricityController@delete');
 
-// });
+});
