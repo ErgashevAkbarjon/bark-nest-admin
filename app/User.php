@@ -44,7 +44,7 @@ class User extends Authenticatable
     
     public function hasRole($roleName)
     {
-        $role = Role::where('name', $roleName)->firs();
+        $role = Role::where('name', $roleName)->first();
         
         return $role->id == $this->role_id;
     }
