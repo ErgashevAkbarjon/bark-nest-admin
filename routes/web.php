@@ -11,15 +11,22 @@
 |
 */
 
+use App\Role;
+
 Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('/regions', 'RegionController@index');
-    Route::post('/regions', 'RegionController@store');
-    Route::put('/regions/{id}', 'RegionController@update');
-    Route::delete('/regions/{id}', 'RegionController@delete');
+
+    Route::group(['middleware' => 'role:'. Role::ADMIN_ROLE_NAME], function () {
+        
+        Route::post('/regions', 'RegionController@store');
+        Route::put('/regions/{id}', 'RegionController@update');
+        Route::delete('/regions/{id}', 'RegionController@delete');
+        
+    });
 
     Route::get('/electricity', 'ElectricityController@index');
     Route::post('/electricity', 'ElectricityController@store');
