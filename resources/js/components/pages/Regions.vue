@@ -143,9 +143,6 @@
 <script>
 export default {
     props: ["regions", "regionTypes", "regionList"],
-    mounted() {
-        console.log(this.regions);
-    },
     data() {
         return {
             dialog: false,
