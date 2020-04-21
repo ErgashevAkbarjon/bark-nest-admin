@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Region;
+use App\RegionType;
 use Illuminate\Http\Request;
 
 class RegionController extends Controller
@@ -12,10 +13,13 @@ class RegionController extends Controller
         $parentRegion = $request->parent_id ?: 0;
 
         $regions =  Region::where('parent_id', $parentRegion)
-            ->with('subregions')
+            ->with(['type','subregions.type'])
             ->get();
 
-        return view('regions.index', compact('regions'));
+        $regionTypes = RegionType::all();
+        $regionList = Region::all();
+
+        return view('regions.index', compact(['regions', 'regionTypes', 'regionList']));
     }
 
     public function store(Request $request)
@@ -27,7 +31,7 @@ class RegionController extends Controller
 
         Region::create($request->all());
 
-        return redirect()->back();
+        return redirect('/regions');
     }
 
     public function update($id, Request $request)
@@ -42,7 +46,7 @@ class RegionController extends Controller
 
         $regionToUpdate->update($request->all());
 
-        return redirect()->back();
+        return redirect('/regions');
     }
     
     public function delete($id)
@@ -57,6 +61,6 @@ class RegionController extends Controller
 
         $regionToDelete->delete();
 
-        return redirect()->back();
+        return redirect('/regions');
     }
 }
