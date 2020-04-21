@@ -1,15 +1,8 @@
 <template>
     <div>
-        <v-app-bar app color="indigo" clipped-left dark>
-            <v-toolbar-title class="ml-5">Электроснабжение</v-toolbar-title>
-        </v-app-bar>
-
         <v-navigation-drawer
             v-model="drawer"
             app
-            clipped
-            mini-variant
-            expand-on-hover
         >
             <v-list dense>
                 <v-list-item link>
@@ -34,6 +27,11 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
+        
+        <v-app-bar app color="indigo" dark>
+            <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+            <v-toolbar-title>Электроснабжение</v-toolbar-title>
+        </v-app-bar>
 
         <v-content>
             <v-container class="fill-height" fluid>
@@ -51,7 +49,7 @@
 export default {
     data() {
         return {
-            drawer: true
+            drawer: false
         };
     },
     methods: {
