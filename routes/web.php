@@ -16,7 +16,9 @@ use App\Role;
 Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', function (){
+        return redirect('/regions');
+    })->name('home');
 
     Route::get('/regions', 'RegionController@index');
 
