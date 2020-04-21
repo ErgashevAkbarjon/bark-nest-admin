@@ -1,6 +1,6 @@
 <template>
     <v-row justify="center">
-        <v-col cols="8">
+        <v-col cols="10">
             <v-data-table
                 :headers="headers"
                 :items="regions"
