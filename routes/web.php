@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/electricity', 'ElectricityController@index');
+    Route::get('/electricity/create', 'ElectricityController@create');
     Route::post('/electricity', 'ElectricityController@store');
     Route::put('/electricity/{id}', 'ElectricityController@update');
     Route::delete('/electricity/{id}', 'ElectricityController@delete');
