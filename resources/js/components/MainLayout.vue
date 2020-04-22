@@ -1,11 +1,12 @@
 <template>
     <div>
-        <v-navigation-drawer
-            v-model="drawer"
-            app
-        >
+        <v-navigation-drawer v-model="drawer" app>
             <v-list dense>
-                <v-list-item link>
+                <v-list-item
+                    link
+                    href="/electricity"
+                    :input-value="isCurrentLink('/electricity')"
+                >
                     <v-list-item-action>
                         <v-icon>mdi-flash</v-icon>
                     </v-list-item-action>
@@ -27,7 +28,7 @@
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
-        
+
         <v-app-bar app color="indigo" dark>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
             <v-toolbar-title>Электроснабжение</v-toolbar-title>
