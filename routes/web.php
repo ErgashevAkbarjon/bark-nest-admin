@@ -17,7 +17,7 @@ Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function (){
-        return redirect('/regions');
+        return redirect('/electricity');
     })->name('home');
 
     Route::get('/regions', 'RegionController@index');
