@@ -3,14 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Electricity;
+use App\Region;
+use App\RegionType;
 use Carbon\Carbon;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Foreach_;
 
 class ElectricityController extends Controller
 {
     public function index(Request $request)
     {
-        return $this->get($request);
+        $regions = Region::where('parent_id', 0)
+            ->with('subregions')
+            ->get();
+
+        return view('electricity.index', compact(['regions']));
     }
 
     public function get(Request $request)
@@ -25,22 +33,45 @@ class ElectricityController extends Controller
 
         $tooBigResult = $electricity->count() > 30;
 
-        if($tooBigResult){
+        if ($tooBigResult) {
             return $electricity->paginate(30)->appends($request->all());
         }
 
         return $electricity->get();
     }
 
+    public function create()
+    {
+        $regions = Region::where('parent_id', 0)
+            ->with('subregions')
+            ->get();
+
+        return view('electricity.create', compact(['regions']));
+    }
+
     public function store(Request $request)
     {
+        if (!$request->has('regionData')) {
+            $request->validate([
+                'region_id' => 'required',
+                'hours' => 'required',
+                'date' => 'required|date_format:Y-m-d',
+            ]);
+    
+            Electricity::create($request->all());
+    
+            return redirect()->back();            
+        }
+        
         $request->validate([
-            'region_id' => 'required',
-            'hours' => 'required',
-            'date' => 'required|date_format:Y-m-d',
+            'regionData.*.region_id' => 'required',
+            'regionData.*.hours' => 'required',
+            'regionData.*.date' => 'required|date_format:Y-m-d',
         ]);
-
-        Electricity::create($request->all());
+        
+        foreach ($request->regionData as $data) {
+            Electricity::create($data);
+        }
 
         return redirect()->back();
     }
@@ -49,15 +80,15 @@ class ElectricityController extends Controller
     {
         $electricityToUpdate = Electricity::find($id);
 
-        if(!$electricityToUpdate){
+        if (!$electricityToUpdate) {
             return redirect()->back()->withErrors('Подобной записи нет');
         }
 
-        if($request->has('hours')){
+        if ($request->has('hours')) {
             $electricityToUpdate->hours = $request->hours;
         }
 
-        if($request->has('comment')){
+        if ($request->has('comment')) {
             $electricityToUpdate->comment = $request->comment;
         }
 
@@ -70,7 +101,7 @@ class ElectricityController extends Controller
     {
         $electricityToDelete = Electricity::find($id);
 
-        if(!$electricityToDelete){
+        if (!$electricityToDelete) {
             return redirect()->back()->withErrors('Подобной записи нет');
         }
 
@@ -88,16 +119,16 @@ class ElectricityController extends Controller
         $requestDateFrom = $request->date_from;
         $requestDateTo = $request->date_to;
 
-        if($requestDateFrom || $requestDateTo){
-            
+        if ($requestDateFrom || $requestDateTo) {
+
             $query->where('date', '>=', $requestDateFrom ?: '2012-02-12');
             $query->where('date', '<=', $requestDateTo ?: Carbon::today()->toDateString());
 
             return;
-        } 
+        }
 
-        if ($request->has('date')){
+        if ($request->has('date')) {
             $query->where('date', $request->date);
-        }   
+        }
     }
 }
