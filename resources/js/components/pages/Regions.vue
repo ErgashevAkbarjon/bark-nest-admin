@@ -43,7 +43,10 @@
                                     </v-card-title>
 
                                     <v-card-text>
-                                        <div class="text-center title" v-if="regionToDelete">
+                                        <div
+                                            class="text-center title"
+                                            v-if="regionToDelete"
+                                        >
                                             Вы уверены что хотите удалить
                                             регион: {{ regionToDelete.name }} ?
                                         </div>
@@ -148,20 +151,23 @@ export default {
             dialog: false,
             headers: [
                 { text: "Имя", value: "name" },
-                { text: "Тип", value: "type.name" },
-                {
-                    text: "Действия",
-                    value: "actions",
-                    sortable: false,
-                    align: "right"
-                }
+                { text: "Тип", value: "type.name" }
             ],
             required: [v => !!v || "Обязательное поле"],
             regionToEdit: null,
             regionToDelete: null
         };
     },
-
+    mounted() {
+        if (this.authIsAdmin) {
+            this.headers.push({
+                text: "Действия",
+                value: "actions",
+                sortable: false,
+                align: "right"
+            });
+        }
+    },
     computed: {
         csrf() {
             return Laravel.csrf;
@@ -198,6 +204,9 @@ export default {
                 case "DELETE":
                     return "";
             }
+        },
+        authIsAdmin() {
+            return Laravel.auth.role_id == 1;
         }
     },
 
@@ -209,11 +218,15 @@ export default {
 
     methods: {
         editRegion(region) {
+            if(!this.authIsAdmin) return;
+
             this.regionToEdit = region;
             this.dialog = true;
         },
 
         deleteRegion(region) {
+            if(!this.authIsAdmin) return;
+
             this.regionToDelete = region;
             this.dialog = true;
         },
