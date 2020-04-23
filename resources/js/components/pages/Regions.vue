@@ -121,8 +121,9 @@
                 </template>
                 <template v-slot:item.name="{ item }">
                     <a
+                        class="accent--text"
                         v-if="item.subregions.length"
-                        :style="{ textDecoration: 'none' }"
+                        :style="{ textDecoration: 'none'}"
                         :href="'/regions?parent_id=' + item.id"
                     >
                         {{ item.name }}

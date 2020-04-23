@@ -31,7 +31,16 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.use(Vuetify)
 
-const opts = {}
+const opts = {
+    theme: {
+        themes: {
+            light: {
+                primary: '#184157',
+                accent: '#e94d65'
+            }
+        }
+    }
+}
 
 
 const app = new Vue({
