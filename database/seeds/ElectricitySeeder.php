@@ -12,6 +12,8 @@ class ElectricitySeeder extends Seeder
      */
     public function run()
     {
+        Electricity::truncate();
+        
         $electricities = $this->getElectricities();
         
         $electricityChunks = array_chunk($electricities, 100);
