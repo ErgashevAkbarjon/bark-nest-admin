@@ -17,6 +17,7 @@
                             v-model="dialog"
                             max-width="500px"
                             @click:outside="close"
+                            v-if="authIsAdmin"
                         >
                             <template v-slot:activator="{ on }">
                                 <v-btn
