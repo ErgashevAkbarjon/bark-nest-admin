@@ -41,7 +41,7 @@ class ElectricityController extends Controller
 
     public function get(Request $request)
     {
-        $electricity = Electricity::with('region.parent');
+        $electricity = Electricity::query();
         
         $this->handleDateFilters($electricity, $request);
 
@@ -51,8 +51,7 @@ class ElectricityController extends Controller
 
         if ($request->has('groupBy')) {
             $grouped = $electricity
-                ->get()
-                ->only(['region_id', 'date', 'hours'])
+                ->get(['region_id', 'date', 'hours'])
                 ->groupBy('date');
             
             if($grouped->count() > 30){
@@ -61,6 +60,8 @@ class ElectricityController extends Controller
 
             return $grouped;
         }
+
+        $electricity->with('region.parent');
 
         $tooBigResult = $electricity->count() > 30;
 
