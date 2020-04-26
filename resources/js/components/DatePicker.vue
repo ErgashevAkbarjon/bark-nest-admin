@@ -15,6 +15,7 @@
                 readonly
                 v-on="on"
                 :rules="rules"
+                :dense="dense"
             ></v-text-field>
         </template>
         <v-date-picker v-model="date" locale="ru-ru">
@@ -29,7 +30,7 @@
 
 <script>
 export default {
-    props: ["value", "label", "name", "rules"],
+    props: ["value", "label", "name", "rules", "dense"],
     data() {
         return {
             modal: false,
