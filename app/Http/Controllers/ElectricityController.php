@@ -50,7 +50,10 @@ class ElectricityController extends Controller
         }
 
         if ($request->has('groupBy')) {
-            $grouped = $electricity->get()->groupBy('date');
+            $grouped = $electricity
+                ->get()
+                ->only(['region_id', 'date', 'hours'])
+                ->groupBy('date');
             
             if($grouped->count() > 30){
                 return $this->paginate($grouped, 30);
