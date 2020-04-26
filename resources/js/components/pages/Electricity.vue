@@ -43,9 +43,81 @@
                         no-data-text="Заполните поля выше"
                         loading-text="Загрузка"
                         :loading="electricityLoading"
-                    ></v-data-table>
+                    >
+                        <template v-slot:item.actions="{ item }">
+                            <v-icon
+                                small
+                                class="mr-2"
+                                @click="editElectricity(item)"
+                            >
+                                mdi-pencil
+                            </v-icon>
+                            <v-icon small @click="deleteElectricity(item)">
+                                mdi-delete
+                            </v-icon>
+                        </template>
+                    </v-data-table>
                 </v-card-text>
             </v-card>
+            <v-dialog
+                v-model="dialog"
+                max-width="500px"
+                @click:outside="closeDialog"
+            >
+                <v-card>
+                    <v-form :action="formData.action" method="POST">
+                        <input
+                            type="hidden"
+                            name="_method"
+                            :value="formData.method"
+                        />
+                        <input type="hidden" name="_token" :value="csrf" />
+
+                        <div v-if="electricityToEdit">
+                            <v-card-title>
+                                Изменение данных
+                            </v-card-title>
+                            <v-card-text>
+                                <v-text-field
+                                    label="Количество часов"
+                                    type="number"
+                                    step="0.01"
+                                    name="hours"
+                                    outlined
+                                    :value="electricityToEdit.hours"
+                                />
+                                <v-textarea
+                                    label="Коментарии"
+                                    name="comment"
+                                    outlined
+                                    :value="electricityToEdit.comment"
+                                />
+                            </v-card-text>
+                        </div>
+                        <div v-if="electricityToDelete">
+                            <v-card-text class="text-center body-1">
+                                Вы действительно хотите удалить данные по району
+                                <b>{{ electricityToDelete.region.name }}</b> за
+                                <b>{{ electricityToDelete.date }}</b> ?
+                            </v-card-text>
+                        </div>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn
+                                color="primary darken-1"
+                                text
+                                @click="closeDialog()"
+                            >
+                                Отмена
+                            </v-btn>
+                            <v-btn color="primary darken-1" text type="submit">
+                                {{ formData.actionName }}
+                            </v-btn>
+                        </v-card-actions>
+                    </v-form>
+                </v-card>
+            </v-dialog>
         </v-col>
     </v-row>
 </template>
@@ -67,9 +139,18 @@ export default {
                 { text: "Регион", value: "region.name" },
                 { text: "Дата", value: "date" },
                 { text: "Количество часов", value: "hours" },
-                { text: "Дата добавления", value: "created_at" }
+                { text: "Дата добавления", value: "created_at" },
+                {
+                    text: "Действия",
+                    value: "actions",
+                    sortable: false,
+                    align: "right"
+                }
             ],
-            electricityLoading: false
+            electricityLoading: false,
+            dialog: false,
+            electricityToEdit: null,
+            electricityToDelete: null
         };
     },
     methods: {
@@ -88,6 +169,20 @@ export default {
                     this.electricityLoading = false;
                     console.log(e);
                 });
+        },
+        editElectricity(electricity) {
+            this.electricityToEdit = electricity;
+            this.dialog = true;
+        },
+        deleteElectricity(electricity) {
+            this.electricityToDelete = electricity;
+            this.dialog = true;
+        },
+        closeDialog() {
+            this.electricityToEdit = null;
+            this.electricityToDelete = null;
+
+            this.dialog = false;
         }
     },
     computed: {
@@ -95,6 +190,32 @@ export default {
             if (!this.region) return [];
 
             return this.region.subregions;
+        },
+        formData() {
+            if (this.electricityToDelete) {
+                return {
+                    method: "DELETE",
+                    action: "/electricity/" + this.electricityToDelete.id,
+                    actionName: "Удалить"
+                };
+            }
+
+            if (this.electricityToEdit) {
+                return {
+                    method: "PUT",
+                    action: "/electricity/" + this.electricityToEdit.id,
+                    actionName: "Сохранить"
+                };
+            }
+
+            return {
+                method: "",
+                action: "",
+                actionName: ""
+            };
+        },
+        csrf() {
+            return Laravel.csrf;
         }
     },
     watch: {
