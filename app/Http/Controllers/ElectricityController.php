@@ -27,17 +27,25 @@ class ElectricityController extends Controller
             ->with('subregions')
             ->get();
 
-        return view('electricity.table', compact(['regions']));
+        $acceptedLanguages = ["ru", "tj", "en"];
+
+        $language = $acceptedLanguages[0];
+
+        if ($request->has('lang') && in_array($request->lang, $acceptedLanguages)) {
+            $language = $request->lang;
+        }
+
+        return view('electricity.table', compact(['regions', 'language']));
     }
 
     public function get(Request $request)
     {
         $electricity = Electricity::with('region.parent');
-
+        
         $this->handleDateFilters($electricity, $request);
 
         if ($request->has('region_id')) {
-            $electricity->where('region_id', $request->region_id);
+            $electricity->whereIn('region_id', explode(",", $request->region_id));
         }
 
         $tooBigResult = $electricity->count() > 30;
@@ -66,18 +74,18 @@ class ElectricityController extends Controller
                 'hours' => 'required',
                 'date' => 'required|date_format:Y-m-d',
             ]);
-    
+
             Electricity::create($request->all());
-    
-            return redirect()->back();            
+
+            return redirect()->back();
         }
-        
+
         $request->validate([
             'regionData.*.region_id' => 'required',
             'regionData.*.hours' => 'required',
             'regionData.*.date' => 'required|date_format:Y-m-d',
         ]);
-        
+
         foreach ($request->regionData as $data) {
             Electricity::create($data);
         }
