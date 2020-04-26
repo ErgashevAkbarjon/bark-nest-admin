@@ -37,3 +37,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/electricity/{id}', 'ElectricityController@delete');
 
 });
+
+Route::get('/electricity/table', 'ElectricityController@table');

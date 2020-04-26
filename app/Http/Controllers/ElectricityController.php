@@ -21,6 +21,15 @@ class ElectricityController extends Controller
         return view('electricity.index', compact(['regions']));
     }
 
+    public function table(Request $request)
+    {
+        $regions = Region::where('parent_id', 0)
+            ->with('subregions')
+            ->get();
+
+        return view('electricity.table', compact(['regions']));
+    }
+
     public function get(Request $request)
     {
         $electricity = Electricity::with('region.parent');
