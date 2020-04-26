@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Electricity;
 use App\Region;
-use App\RegionType;
 use Carbon\Carbon;
-use Dotenv\Validator;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\Foreach_;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ElectricityController extends Controller
 {
@@ -46,6 +47,16 @@ class ElectricityController extends Controller
 
         if ($request->has('region_id')) {
             $electricity->whereIn('region_id', explode(",", $request->region_id));
+        }
+
+        if ($request->has('groupBy')) {
+            $grouped = $electricity->get()->groupBy('date');
+            
+            if($grouped->count() > 30){
+                return $this->paginate($grouped, 30);
+            }
+
+            return $grouped;
         }
 
         $tooBigResult = $electricity->count() > 30;
@@ -147,5 +158,22 @@ class ElectricityController extends Controller
         if ($request->has('date')) {
             $query->where('date', $request->date);
         }
+    }
+
+    private function paginate($items, $perPage = 5, $page = null)
+    {
+        $options = [
+            'path' => url()->full(),
+        ];
+
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator(
+            $items->forPage($page, $perPage), 
+            $items->count(), 
+            $perPage, 
+            $page,
+            $options
+        );
     }
 }
