@@ -3,5 +3,6 @@
 @section('main')
 <electricity-table
     :regions="{{$regions}}"
+    language="{{$language}}"
 ></electricity-table>
 @endsection
