@@ -1,5 +1,5 @@
 <template>
-    <v-row justify="center" align="center">
+    <v-row justify="center">
         <v-col cols="12">
             <v-card class="elevation-2 mx-2" outlined>
                 <v-card-title>
