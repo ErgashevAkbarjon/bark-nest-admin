@@ -175,7 +175,7 @@ export default {
         setPaginationIfExists(data){
             if(data.hasOwnProperty('data')){
                 this.electricityPaginaiton = {...data};
-                delete electricityPaginaiton.data;
+                delete this.electricityPaginaiton.data;
 
                 return true;
             }
