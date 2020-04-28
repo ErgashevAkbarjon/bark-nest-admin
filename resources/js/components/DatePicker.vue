@@ -1,10 +1,12 @@
 <template>
-    <v-dialog
-        ref="dialog"
-        v-model="modal"
+    <v-menu
+        ref="menu"
+        v-model="menu"
+        :close-on-content-click="false"
         :return-value.sync="date"
-        persistent
-        width="290px"
+        transition="scale-transition"
+        offset-y
+        min-width="290px"
     >
         <template v-slot:activator="{ on }">
             <v-text-field
@@ -18,14 +20,12 @@
                 :dense="dense"
             ></v-text-field>
         </template>
-        <v-date-picker v-model="date" locale="ru-ru">
+        <v-date-picker v-model="date" no-title locale="ru-ru">
             <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="modal = false">Отмена</v-btn>
-            <v-btn text color="primary" @click="setDate()"
-                >OK</v-btn
-            >
+            <v-btn text color="primary" @click="menu = false">Отмена</v-btn>
+            <v-btn text color="primary" @click="setDate()">OK</v-btn>
         </v-date-picker>
-    </v-dialog>
+    </v-menu>
 </template>
 
 <script>
@@ -33,18 +33,18 @@ export default {
     props: ["value", "label", "name", "rules", "dense"],
     data() {
         return {
-            modal: false,
+            menu: false,
             date: this.value
         };
     },
     methods: {
-        setDate(){
-            this.$refs.dialog.save(this.date);
+        setDate() {
+            this.$refs.menu.save(this.date);
             this.$emit("input", this.date);
         }
     },
     watch: {
-        value(v){
+        value(v) {
             this.date = v;
         }
     }
