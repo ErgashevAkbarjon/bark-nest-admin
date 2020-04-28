@@ -22,6 +22,7 @@
                             <v-col class="py-0">
                                 <v-select
                                     :label="labels.district"
+                                    :no-data-text="labels.region"
                                     :items="districts"
                                     v-model="selectedDistricts"
                                     outlined
