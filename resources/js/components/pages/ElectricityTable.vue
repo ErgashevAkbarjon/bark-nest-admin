@@ -152,6 +152,10 @@ export default {
         },
         fetchElectrocities() {
             this.electricityLoading = true;
+            this.electricityData = {
+                headers:[],
+                data:[]
+            };
 
             let regionIdsString = this.selectedDistricts
                 .map(r => r.id)
