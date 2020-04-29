@@ -50,12 +50,26 @@
                                 />
                             </v-col>
                             <v-col class="py-0">
-                                <v-btn color="primary" type="submit">
+                                <v-btn color="primary" type="submit" block>
                                     {{ labels.submit }}
                                 </v-btn>
                             </v-col>
                         </v-row>
                     </v-form>
+                    <v-row >
+                        <v-col cols="4">
+                            <v-text-field
+                                class="mb-3"
+                                v-model="search"
+                                append-icon="mdi-magnify"
+                                :label="labels.search"
+                                outlined
+                                dense
+                                single-line
+                                hide-details
+                            />
+                        </v-col>
+                    </v-row>
                     <v-data-table
                         :headers="electricityData.headers"
                         :items="electricityData.data"
@@ -63,6 +77,7 @@
                         :no-data-text="labels.noData"
                         :loading-text="labels.loading"
                         :loading="electricityLoading"
+                        :search="search"
                     />
                 </v-card-text>
             </v-card>
@@ -84,6 +99,7 @@ export default {
                 headers: [],
                 data: []
             },
+            search: ''
         };
     },
     computed: {
@@ -99,6 +115,7 @@ export default {
                         district: "Ноҳияро интихоб намоед",
                         submit: "Нишон додан",
                         required: "Бояд пур карда шавад",
+                        search: "Чустучу",
                         noData: "",
                         loading: "Интизор шавед ..."
                     };
@@ -112,6 +129,7 @@ export default {
                         district: "Select the district",
                         submit: "Show",
                         required: "Required",
+                        search: "Search",
                         noData: "No data",
                         loading: "Loading ..."
                     };
@@ -125,6 +143,7 @@ export default {
                         district: "Выберите район",
                         submit: "Показать",
                         required: "Обязательное поле",
+                        search: "Поиск",
                         noData: "Нет данных",
                         loading: "Загрузка ..."
                     };
@@ -152,8 +171,8 @@ export default {
         fetchElectrocities() {
             this.electricityLoading = true;
             this.electricityData = {
-                headers:[],
-                data:[]
+                headers: [],
+                data: []
             };
 
             let regionIdsString = this.selectedDistricts
@@ -173,12 +192,12 @@ export default {
         },
         setElectricityData(data) {
             this.electricityData.headers = [{ text: "Дата", value: "date" }];
-            
+
             for (const district of this.selectedDistricts) {
                 this.electricityData.headers.push({
                     text: district.name,
                     value: `${district.id}`
-                })
+                });
             }
 
             this.electricityData.data = data;
@@ -187,7 +206,7 @@ export default {
         }
     },
     watch: {
-        region(v){
+        region(v) {
             this.selectedDistricts = [];
         }
     }
