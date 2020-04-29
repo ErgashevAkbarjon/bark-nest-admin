@@ -84,7 +84,6 @@ export default {
                 headers: [],
                 data: []
             },
-            electricityPaginaiton: null
         };
     },
     computed: {
@@ -161,7 +160,7 @@ export default {
                 .map(r => r.id)
                 .toString();
 
-            let url = `/api/electricity?groupBy=date&date_from=${this.dateFrom}&date_to=${this.dateTo}&region_id=${regionIdsString}`;
+            let url = `/api/electricity/table?date_from=${this.dateFrom}&date_to=${this.dateTo}&region_id=${regionIdsString}`;
 
             axios
                 .get(url)
@@ -171,14 +170,6 @@ export default {
                 .catch(e => {
                     this.electricityLoading = false;
                 });
-        },
-        setPaginationIfExists(data){
-            if(data.hasOwnProperty('data')){
-                this.electricityPaginaiton = {...data};
-                delete this.electricityPaginaiton.data;
-
-                return true;
-            }
         },
         setElectricityData(data) {
             this.electricityData.headers = [{ text: "Дата", value: "date" }];
@@ -190,30 +181,7 @@ export default {
                 })
             }
 
-            let electricities = data;
-
-            let dataWithPagination = this.setPaginationIfExists(data);
-
-            if(dataWithPagination){
-                electricities = {...data.data};
-            }
-
-            let preparedData = [];
-
-            for (const e in electricities) {
-                if (electricities.hasOwnProperty(e)) {
-                    
-                    let readyData = {date: e};
-
-                    for (const electricityInDate of electricities[e]) {
-                        readyData[electricityInDate.region_id] = electricityInDate.hours;
-                    }
-
-                    preparedData.push(readyData);
-                }
-            }
-            
-            this.electricityData.data = preparedData;
+            this.electricityData.data = data;
 
             this.electricityLoading = false;
         }

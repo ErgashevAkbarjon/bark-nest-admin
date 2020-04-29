@@ -42,23 +42,11 @@ class ElectricityController extends Controller
     public function get(Request $request)
     {
         $electricity = Electricity::query();
-        
+
         $this->handleDateFilters($electricity, $request);
 
         if ($request->has('region_id')) {
             $electricity->whereIn('region_id', explode(",", $request->region_id));
-        }
-
-        if ($request->has('groupBy')) {
-            $grouped = $electricity
-                ->get(['region_id', 'date', 'hours'])
-                ->groupBy('date');
-            
-            if($grouped->count() > 30){
-                return $this->paginate($grouped, 30);
-            }
-
-            return $grouped;
         }
 
         $electricity->with('region.parent');
@@ -70,6 +58,39 @@ class ElectricityController extends Controller
         }
 
         return $electricity->get();
+    }
+
+    public function tableData(Request $request)
+    {
+        $electricity = Electricity::query();
+
+        $this->handleDateFilters($electricity, $request);
+
+        if ($request->has('region_id')) {
+            $electricity->whereIn('region_id', explode(",", $request->region_id));
+        }
+
+        $grouped = $electricity
+            ->get(['region_id', 'date', 'hours'])
+            ->mapToGroups(function ($item, $key){
+                return [
+                    $item['date'] => [ 'r' => $item['region_id'], 'h' => $item['hours']]
+                ];
+            });
+        
+        $flattenedGroup = [];
+
+        foreach ($grouped->toArray() as $date => $regionData) {
+            $group = ['date' => $date];
+            
+            foreach ($regionData as $region) {
+                $group[$region['r']] = $region['h'];
+            }
+
+            $flattenedGroup[] = $group;
+        }
+
+        return $flattenedGroup;
     }
 
     public function create()
@@ -173,9 +194,9 @@ class ElectricityController extends Controller
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
         return new LengthAwarePaginator(
-            $items->forPage($page, $perPage), 
-            $items->count(), 
-            $perPage, 
+            $items->forPage($page, $perPage),
+            $items->count(),
+            $perPage,
             $page,
             $options
         );
