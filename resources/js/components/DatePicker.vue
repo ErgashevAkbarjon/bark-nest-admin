@@ -20,11 +20,12 @@
                 :dense="dense"
             ></v-text-field>
         </template>
-        <v-date-picker v-model="date" no-title locale="ru-ru">
-            <v-spacer></v-spacer>
-            <v-btn text color="primary" @click="menu = false">Отмена</v-btn>
-            <v-btn text color="primary" @click="setDate()">OK</v-btn>
-        </v-date-picker>
+        <v-date-picker 
+            :value="date"
+            @input="setDate" 
+            no-title 
+            locale="ru-ru"
+        />
     </v-menu>
 </template>
 
@@ -38,7 +39,8 @@ export default {
         };
     },
     methods: {
-        setDate() {
+        setDate(date) {
+            this.date = date;
             this.$refs.menu.save(this.date);
             this.$emit("input", this.date);
         }
