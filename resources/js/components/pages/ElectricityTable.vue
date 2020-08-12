@@ -87,7 +87,7 @@
                                         {{item.date}}
                                     </span>
 
-                                    <v-tooltip top v-else>
+                                    <v-tooltip top v-else-if="item[header.value][1] && item[header.value][2]">
                                         <template v-slot:activator="{ on, attrs }">
                                             <span v-bind="attrs" v-on="on">{{item[header.value][0]}}</span>
                                         </template>
@@ -96,6 +96,7 @@
                                         <div>Вечерняя подача: {{item[header.value][2]}}</div>
                                     </v-tooltip>
 
+                                    <span v-else>{{item[header.value][0]}}</span>
                                 </td>
                             </tr>
                         </template>
