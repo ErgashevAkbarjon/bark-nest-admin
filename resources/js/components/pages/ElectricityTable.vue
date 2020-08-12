@@ -78,7 +78,28 @@
                         :loading-text="labels.loading"
                         :loading="electricityLoading"
                         :search="search"
-                    />
+                    >
+                        <template v-slot:item="{item, headers}">
+
+                            <td v-for="(header, i) in headers" :key="i">
+
+                                <span v-if="header.value === 'date'">
+                                    {{item.date}}
+                                </span>
+
+                                <v-tooltip top v-else>
+                                    <template v-slot:activator="{ on, attrs }">
+                                        <span v-bind="attrs" v-on="on">{{item[header.value][0]}}</span>
+                                    </template>
+
+                                    <div>Утренняя подача: {{item[header.value][1]}}</div>
+                                    <div>Вечерняя подача: {{item[header.value][2]}}</div>
+                                </v-tooltip>
+
+                            </td>
+
+                        </template>
+                    </v-data-table>
                 </v-card-text>
             </v-card>
         </v-col>

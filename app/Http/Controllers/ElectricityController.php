@@ -71,10 +71,15 @@ class ElectricityController extends Controller
         }
 
         $grouped = $electricity
-            ->get(['region_id', 'date', 'hours'])
+            ->get(['region_id', 'date', 'hours', 'day_period', 'night_period'])
             ->mapToGroups(function ($item, $key){
                 return [
-                    $item['date'] => [ 'r' => $item['region_id'], 'h' => $item['hours']]
+                    $item['date'] => [ 
+                        'r' => $item['region_id'],
+                        'h' => $item['hours'],
+                        'd' => $item['day_period'],
+                        'n' => $item['night_period']
+                    ]
                 ];
             });
         
@@ -84,7 +89,7 @@ class ElectricityController extends Controller
             $group = ['date' => $date];
             
             foreach ($regionData as $region) {
-                $group[$region['r']] = $region['h'];
+                $group[$region['r']] = [$region['h'], $region['d'], $region['n']];
             }
 
             $flattenedGroup[] = $group;
