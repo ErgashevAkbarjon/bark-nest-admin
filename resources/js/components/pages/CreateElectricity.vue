@@ -39,11 +39,8 @@
                                         {{ district.name }}
                                     </v-card-subtitle>
                                     <v-card-text>
-                                        <v-text-field
+                                        <time-input
                                             label="Часы"
-                                            type="number"
-                                            step="0.01"
-                                            outlined
                                             v-model="district.hours"
                                             :rules="requiredRule"
                                         />
@@ -76,8 +73,11 @@
 </template>
 
 <script>
+import TimeInput from "../TimeInput";
+
 export default {
     props: ["regions"],
+    components: { TimeInput },
     data() {
         return {
             date: null,
@@ -86,9 +86,6 @@ export default {
         };
     },
     watch: {
-        date(v) {
-            console.log(this.region);
-        },
         region(v) {
             for (const district of v.subregions) {
                 district.hours = "24.00";

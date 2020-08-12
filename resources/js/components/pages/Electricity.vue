@@ -78,12 +78,9 @@
                                 Изменение данных
                             </v-card-title>
                             <v-card-text>
-                                <v-text-field
+                                <time-input
                                     label="Количество часов"
-                                    type="number"
-                                    step="0.01"
                                     name="hours"
-                                    outlined
                                     :value="electricityToEdit.hours"
                                 />
                                 <v-textarea
@@ -123,8 +120,11 @@
 </template>
 
 <script>
+import TimeInput from "../TimeInput";
+
 export default {
     props: ["regions"],
+    components: { TimeInput },
     data() {
         return {
             date: null,
