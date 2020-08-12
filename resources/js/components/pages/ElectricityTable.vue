@@ -80,24 +80,24 @@
                         :search="search"
                     >
                         <template v-slot:item="{item, headers}">
+                            <tr>
+                                <td v-for="(header, i) in headers" :key="i">
 
-                            <td v-for="(header, i) in headers" :key="i">
+                                    <span v-if="header.value === 'date'">
+                                        {{item.date}}
+                                    </span>
 
-                                <span v-if="header.value === 'date'">
-                                    {{item.date}}
-                                </span>
+                                    <v-tooltip top v-else>
+                                        <template v-slot:activator="{ on, attrs }">
+                                            <span v-bind="attrs" v-on="on">{{item[header.value][0]}}</span>
+                                        </template>
 
-                                <v-tooltip top v-else>
-                                    <template v-slot:activator="{ on, attrs }">
-                                        <span v-bind="attrs" v-on="on">{{item[header.value][0]}}</span>
-                                    </template>
+                                        <div>Утренняя подача: {{item[header.value][1]}}</div>
+                                        <div>Вечерняя подача: {{item[header.value][2]}}</div>
+                                    </v-tooltip>
 
-                                    <div>Утренняя подача: {{item[header.value][1]}}</div>
-                                    <div>Вечерняя подача: {{item[header.value][2]}}</div>
-                                </v-tooltip>
-
-                            </td>
-
+                                </td>
+                            </tr>
                         </template>
                     </v-data-table>
                 </v-card-text>
