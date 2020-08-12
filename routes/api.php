@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/electricity', 'ElectricityController@get');
 Route::get('/electricity/table', 'ElectricityController@tableData');
+
+Route::get('/regions', 'RegionController@get');

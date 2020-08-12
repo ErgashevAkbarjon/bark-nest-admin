@@ -22,6 +22,13 @@ class RegionController extends Controller
         return view('regions.index', compact(['regions', 'regionTypes', 'regionList']));
     }
 
+    public function get(Request $request)
+    {
+        return Region::where('parent_id', 0)
+            ->with(['type','subregions.type'])
+            ->get();
+    }
+
     public function store(Request $request)
     {
         $request->validate([
