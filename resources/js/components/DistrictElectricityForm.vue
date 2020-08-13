@@ -66,7 +66,7 @@ export default {
 
             let minutes = (total - hours) * 60;
 
-            minutes = parseFloat('0.' + minutes);
+            minutes = parseFloat(minutes >= 10 ? '0.' + minutes : '0.0' + minutes);
 
             hours += minutes;
 
