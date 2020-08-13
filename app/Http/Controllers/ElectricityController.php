@@ -10,6 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use PDO;
 
 class ElectricityController extends Controller
 {
@@ -47,6 +48,12 @@ class ElectricityController extends Controller
 
         if ($request->has('region_id')) {
             $electricity->whereIn('region_id', explode(",", $request->region_id));
+        }
+
+        if ($request->has('last')){
+            $lastAddedDate = Electricity::orderByDesc('date')->first()->date;
+
+            $electricity->where('date', $lastAddedDate);
         }
 
         $electricity->with('region.parent');
