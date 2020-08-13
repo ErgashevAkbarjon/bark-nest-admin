@@ -43,6 +43,9 @@ export default {
     watch: {
         time(v){
             this.$emit('input', v);
+        },
+        value(v) {
+            this.time = v;
         }
     }
 }
