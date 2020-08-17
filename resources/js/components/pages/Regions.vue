@@ -198,7 +198,7 @@ export default {
 
             return {
                 method: "POST",
-                action: "/regions/",
+                action: "/regions",
                 actionName: "Добавить"
             };
         },
