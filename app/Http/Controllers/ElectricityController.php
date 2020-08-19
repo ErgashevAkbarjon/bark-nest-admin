@@ -58,13 +58,7 @@ class ElectricityController extends Controller
 
         $electricity->with('region.parent');
 
-        $tooBigResult = $electricity->count() > 30;
-
-        if ($tooBigResult) {
-            return $electricity->paginate(30)->appends($request->all());
-        }
-
-        return $electricity->get();
+        return $electricity->paginate(30)->appends($request->all());
     }
 
     public function tableData(Request $request)
