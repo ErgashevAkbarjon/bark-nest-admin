@@ -26,25 +26,50 @@
                                     :rules="requiredRule"
                                 />
                             </v-col>
-                        </v-row>
-
-                        <v-row v-if="region">
-                            <v-col
-                                cols="4"
-                                v-for="(district, i) in region.subregions"
-                                :key="i"
-                            >
-                                <district-electricity-form 
-                                    :district="district"
-                                />
+                            <v-col>
+                                <v-select
+                                    label="Выберите районы"
+                                    :items="subregions"
+                                    v-model="subregionsToStore"
+                                    multiple
+                                    outlined
+                                    item-text="name"
+                                    return-object
+                                    :rules="requiredRule"
+                                >
+                                    <template v-slot:prepend-item>
+                                        <v-list-item
+                                            ripple
+                                            @click="subregionsToStore = subregions"
+                                        >
+                                        <v-list-item-content>
+                                            <v-list-item-title>Выбрать все</v-list-item-title>
+                                        </v-list-item-content>
+                                        </v-list-item>
+                                    </template>
+                                </v-select>
                             </v-col>
                         </v-row>
-                        <div
-                            class="text-right"
-                            v-if="region"
-                            @click="saveRegionData()"
-                        >
-                            <v-btn type="button" color="green" dark>Сохранить</v-btn>
+
+                        <div v-if="subregionsToStore.length">
+                            <v-row>
+                                <v-col
+                                    cols="4"
+                                    v-for="(district, i) in subregionsToStore"
+                                    :key="i"
+                                >
+                                    <district-electricity-form
+                                        :district="district"
+                                    />
+                                </v-col>
+                            </v-row>
+                            <div
+                                class="text-right"
+                                v-if="region"
+                                @click="saveRegionData()"
+                            >
+                                <v-btn type="button" color="green" dark>Сохранить</v-btn>
+                            </div>
                         </div>
                     </v-form>
                 </v-card-text>
@@ -63,12 +88,21 @@ export default {
         return {
             date: null,
             region: null,
-            requiredRule: [v => !!v || "Обязательное поле"]
+            subregions: [],
+            requiredRule: [v => !!v || "Обязательное поле"],
+            subregionsToStore: []
         };
     },
     watch: {
-        region(v) {
-            for (const district of v.subregions) {
+        region(region){
+            if(region){
+                this.subregions = region.subregions;
+            } else {
+                this.subregions = [];
+            }
+        },
+        subregionsToStore(subregions) {
+            for (const district of subregions) {
                 district.hours = "24.00";
                 district.dayPeriod = "00:00 - 12:00";
                 district.nightPeriod = "12:00 - 00:00";
@@ -80,7 +114,7 @@ export default {
             const valid = this.$refs.form.validate();
             if(!valid) return;
 
-            let dataToStore = this.region.subregions.map(r => ({
+            let dataToStore = this.subregionsToStore.map(r => ({
                 region_id: r.id,
                 date: this.date,
                 hours: r.hours,
