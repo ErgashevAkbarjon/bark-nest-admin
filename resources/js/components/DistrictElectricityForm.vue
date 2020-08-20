@@ -90,8 +90,15 @@ export default {
                     continue;
                 }
 
-                let firstPart = new Date('2020-01-01 ' + splittedPeriod[0]);
-                let secondPart = new Date('2020-01-01 ' + splittedPeriod[1]);
+                let someDate = '2020-01-01 ';
+                let someDatesTomorrow = '2020-01-02 ';
+
+                let firstPart = new Date(someDate + splittedPeriod[0]);
+                let secondPart = new Date( 
+                    splittedPeriod[1] == '00:00' ? 
+                    someDatesTomorrow + splittedPeriod[1] : 
+                    someDate + splittedPeriod[1]
+                );
 
                 if(!this.isValidDate(firstPart) || !this.isValidDate(secondPart)){
                     continue;
