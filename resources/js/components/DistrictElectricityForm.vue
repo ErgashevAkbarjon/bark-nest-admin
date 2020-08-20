@@ -57,8 +57,17 @@ export default {
             this.tryCalculate();
         },
         tryCalculate(){
-            let dayTotal = this.getTimePeriod(this.dayPeriod);
-            let nightTotal = this.getTimePeriod(this.nightPeriod);
+            let dayTotal = 0.00;
+            let nightTotal = 0.00;
+
+            if(this.dayPeriod){
+                dayTotal = this.getTimePeriod(this.dayPeriod);
+            }
+
+            if(this.nightPeriod){
+                nightTotal = this.getTimePeriod(this.nightPeriod);
+            }
+
             
             let total = dayTotal + nightTotal;
 
