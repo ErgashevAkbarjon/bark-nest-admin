@@ -161,9 +161,9 @@ export default {
 
             axios
                 .get(url)
-                .then(r => {
+                .then(({ data: pagnation}) => {
                     this.electricityLoading = false;
-                    this.electricity = r.data;
+                    this.electricity = pagnation.data;
                 })
                 .catch(e => {
                     this.electricityLoading = false;
