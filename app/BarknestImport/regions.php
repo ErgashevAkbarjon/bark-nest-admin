@@ -40,7 +40,7 @@ return [
     ],
     [
         'id' => 16,
-        'name' => 'Файзабад',
+        'name' => 'Файзобад',
         'region_type_id' => $districtType,
         'parent_id' => 1
     ],
@@ -52,13 +52,13 @@ return [
     ],
     [
         'id' => 18,
-        'name' => 'Чиргатол',
+        'name' => 'Лахш',
         'region_type_id' => $districtType,
         'parent_id' => 1
     ],
     [
         'id' => 19,
-        'name' => 'Нурабад',
+        'name' => 'Нуробод',
         'region_type_id' => $districtType,
         'parent_id' => 1
     ],
@@ -70,7 +70,7 @@ return [
     ],
     [
         'id' => 21,
-        'name' => 'Рагун',
+        'name' => 'Рогун',
         'region_type_id' => $districtType,
         'parent_id' => 1
     ],
@@ -94,7 +94,7 @@ return [
     ],
     [
         'id' => 25,
-        'name' => 'Точикобод',
+        'name' => 'Таджикобад',
         'region_type_id' => $districtType,
         'parent_id' => 1
     ],
@@ -118,7 +118,7 @@ return [
     ],
     [
         'id' => 29,
-        'name' => 'Бобочон Гафуров',
+        'name' => 'Б. Гафуров',
         'region_type_id' => $districtType,
         'parent_id' => 2
     ],
@@ -142,7 +142,7 @@ return [
     ],
     [
         'id' => 33,
-        'name' => 'Чабор Расулов',
+        'name' => 'Дж. Расулов',
         'region_type_id' => $districtType,
         'parent_id' => 2
     ],
@@ -154,7 +154,7 @@ return [
     ],
     [
         'id' => 35,
-        'name' => 'Кухистони Мастчох',
+        'name' => 'Мастчохи Кухи',
         'region_type_id' => $districtType,
         'parent_id' => 2
     ],
@@ -166,13 +166,13 @@ return [
     ],
     [
         'id' => 37,
-        'name' => 'Панчакент',
+        'name' => 'Пянджикент',
         'region_type_id' => $districtType,
         'parent_id' => 2
     ],
     [
         'id' => 38,
-        'name' => 'Шахристон',
+        'name' => 'Шахристан',
         'region_type_id' => $districtType,
         'parent_id' => 2
     ],
@@ -190,13 +190,13 @@ return [
     ],
     [
         'id' => 41,
-        'name' => 'Балчуван',
+        'name' => 'Балджувон',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
     [
         'id' => 42,
-        'name' => 'Бохтар',
+        'name' => 'Кушониён',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
@@ -220,13 +220,13 @@ return [
     ],
     [
         'id' => 46,
-        'name' => 'Чиликул',
+        'name' => 'Дусти',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
     [
         'id' => 47,
-        'name' => 'Чоми',
+        'name' => 'А. Джами',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
@@ -250,25 +250,25 @@ return [
     ],
     [
         'id' => 51,
-        'name' => 'Муминабад',
+        'name' => 'Муминобод',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
     [
         'id' => 52,
-        'name' => 'Нурек',
+        'name' => 'Норак',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
     [
         'id' => 53,
-        'name' => 'Носири Хусрав',
+        'name' => 'Н. Хусрав',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
     [
         'id' => 54,
-        'name' => 'Панч',
+        'name' => 'Пяндж',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
@@ -280,19 +280,19 @@ return [
     ],
     [
         'id' => 56,
-        'name' => 'Кумсангир',
+        'name' => 'Джайхун',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
     [
         'id' => 57,
-        'name' => 'Руми',
+        'name' => 'Дж. Балхи',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
     [
         'id' => 58,
-        'name' => 'Сарбанд',
+        'name' => 'Левакант',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
@@ -304,7 +304,7 @@ return [
     ],
     [
         'id' => 60,
-        'name' => 'Шурабад',
+        'name' => 'Ш. Шохин',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
@@ -322,7 +322,7 @@ return [
     ],
     [
         'id' => 63,
-        'name' => 'Восеъ',
+        'name' => 'Восе',
         'region_type_id' => $districtType,
         'parent_id' => 3
     ],
@@ -352,25 +352,25 @@ return [
     ],
     [
         'id' => 68,
-        'name' => 'Рошткалъа',
+        'name' => 'Рошткала',
         'region_type_id' => $districtType,
         'parent_id' => 4
     ],
     [
         'id' => 69,
-        'name' => 'Рушон',
+        'name' => 'Рушан',
         'region_type_id' => $districtType,
         'parent_id' => 4
     ],
     [
         'id' => 70,
-        'name' => 'Шугнон',
+        'name' => 'Шугнан',
         'region_type_id' => $districtType,
         'parent_id' => 4
     ],
     [
         'id' => 71,
-        'name' => 'Ванч',
+        'name' => 'Вандж',
         'region_type_id' => $districtType,
         'parent_id' => 4
     ],
