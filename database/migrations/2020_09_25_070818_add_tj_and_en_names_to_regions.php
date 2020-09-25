@@ -14,8 +14,8 @@ class AddTjAndEnNamesToRegions extends Migration
     public function up()
     {
         Schema::table('regions', function (Blueprint $table) {
-            $table->string('name_tj')->after('name');
-            $table->string('name_en')->after('name_tj');
+            $table->string('name_tj')->after('name')->default('');
+            $table->string('name_en')->after('name_tj')->default('');
         });
     }
 
