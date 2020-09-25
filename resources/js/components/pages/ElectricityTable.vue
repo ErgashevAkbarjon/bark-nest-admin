@@ -15,7 +15,7 @@
                                     v-model="region"
                                     outlined
                                     dense
-                                    item-text="name"
+                                    :item-text="regionNameField"
                                     return-object
                                 />
                             </v-col>
@@ -28,7 +28,7 @@
                                     outlined
                                     dense
                                     multiple
-                                    item-text="name"
+                                    :item-text="regionNameField"
                                     return-object
                                     :rules="requiredRule"
                                 />
@@ -139,7 +139,8 @@ export default {
                         required: "Бояд пур карда шавад",
                         search: "Чустучу",
                         noData: "",
-                        loading: "Интизор шавед ..."
+                        loading: "Интизор шавед ...",
+                        date: "Сана"
                     };
                 case "en":
                     return {
@@ -153,7 +154,8 @@ export default {
                         required: "Required",
                         search: "Search",
                         noData: "No data",
-                        loading: "Loading ..."
+                        loading: "Loading ...",
+                        date: "Date"
                     };
                 default:
                     return {
@@ -167,7 +169,8 @@ export default {
                         required: "Обязательное поле",
                         search: "Поиск",
                         noData: "Нет данных",
-                        loading: "Загрузка ..."
+                        loading: "Загрузка ...",
+                        date: "Дата"
                     };
             }
         },
@@ -178,6 +181,16 @@ export default {
             if (!this.region) return [];
 
             return this.region.subregions;
+        },
+        regionNameField() {
+            switch (this.language) {
+                case 'tj':
+                    return 'name_tj';
+                case 'en':
+                    return 'name_en';
+                default:
+                    return 'name';
+            }
         }
     },
     methods: {
@@ -213,11 +226,11 @@ export default {
                 });
         },
         setElectricityData(data) {
-            this.electricityData.headers = [{ text: "Дата", value: "date" }];
+            this.electricityData.headers = [{ text: this.labels.date, value: "date" }];
 
             for (const district of this.selectedDistricts) {
                 this.electricityData.headers.push({
-                    text: district.name,
+                    text: district[this.regionNameField],
                     value: `${district.id}`
                 });
             }
