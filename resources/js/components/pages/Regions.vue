@@ -57,18 +57,44 @@
                                             <b>{{ regionToDelete.name }}</b> ?
                                         </div>
                                         <v-container v-else>
-                                            <v-row>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field
-                                                        label="Название"
-                                                        name="name"
-                                                        :rules="required"
-                                                        :value="
-                                                            regionToEdit
-                                                                ? regionToEdit.name
-                                                                : null
-                                                        "
-                                                    />
+                                            <v-row justify="center">
+                                                <v-col cols="12">
+                                                    <v-row>
+                                                        <v-col cols="12" sm="6" md="4">
+                                                            <v-text-field
+                                                                label="Название"
+                                                                name="name"
+                                                                :rules="required"
+                                                                :value="
+                                                                    regionToEdit
+                                                                        ? regionToEdit.name
+                                                                        : null
+                                                                "
+                                                            />
+                                                        </v-col>
+                                                        <v-col cols="12" sm="6" md="4">
+                                                            <v-text-field
+                                                                label="Название на Tj"
+                                                                name="name_tj"
+                                                                :value="
+                                                                    regionToEdit
+                                                                        ? regionToEdit.name_tj
+                                                                        : null
+                                                                "
+                                                            />
+                                                        </v-col>
+                                                        <v-col cols="12" sm="6" md="4">
+                                                            <v-text-field
+                                                                label="Название на En"
+                                                                name="name_en"
+                                                                :value="
+                                                                    regionToEdit
+                                                                        ? regionToEdit.name_en
+                                                                        : null
+                                                                "
+                                                            />
+                                                        </v-col>
+                                                    </v-row>
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="4">
                                                     <v-select
