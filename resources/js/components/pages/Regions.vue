@@ -157,7 +157,9 @@ export default {
         return {
             dialog: false,
             headers: [
-                { text: "Имя", value: "name" },
+                { text: "Название", value: "name" },
+                { text: "Название на Tj", value: "name_tj" },
+                { text: "Название на En", value: "name_en" },
                 { text: "Тип", value: "type.name" }
             ],
             required: [v => !!v || "Обязательное поле"],
