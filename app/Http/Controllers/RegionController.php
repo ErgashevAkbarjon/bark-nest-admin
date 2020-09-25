@@ -17,9 +17,9 @@ class RegionController extends Controller
             ->get();
 
         $regionTypes = RegionType::all();
-        $regionList = Region::all();
+        $parentRegions = Region::where('parent_id', 0)->get();
 
-        return view('regions.index', compact(['regions', 'regionTypes', 'regionList']));
+        return view('regions.index', compact(['regions', 'regionTypes', 'parentRegions']));
     }
 
     public function get(Request $request)

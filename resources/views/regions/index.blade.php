@@ -4,6 +4,6 @@
     <regions 
         :regions="{{$regions}}" 
         :region-types="{{$regionTypes}}"
-        :region-list="{{$regionList}}"
+        :parent-regions="{{$parentRegions}}"
     ></regions>
 @endsection

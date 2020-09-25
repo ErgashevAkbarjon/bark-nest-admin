@@ -87,7 +87,7 @@
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="4">
                                                     <v-select
-                                                        :items="regionList"
+                                                        :items="parentRegions"
                                                         label="Родительский регион"
                                                         name="parent_id"
                                                         item-value="id"
@@ -152,7 +152,7 @@
 
 <script>
 export default {
-    props: ["regions", "regionTypes", "regionList"],
+    props: ["regions", "regionTypes", "parentRegions"],
     data() {
         return {
             dialog: false,
